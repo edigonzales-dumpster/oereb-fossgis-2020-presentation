@@ -1,0 +1,30 @@
+plugins {
+    id 'org.asciidoctor.jvm.convert' version '3.1.0'
+    id 'org.asciidoctor.jvm.revealjs' version '3.1.0'
+}
+
+apply from: "$rootDir/gradle/versioning.gradle"
+
+repositories {
+    jcenter()
+    maven { url 'http://rubygems-proxy.torquebox.org/releases' }
+    mavenCentral()
+}
+
+asciidoctor {
+    sourceDir  file('src/docs/asciidoc')
+    outputDir  file('build/docs')
+    
+    resources {
+        from(sourceDir) {
+            include 'images/**'
+        }
+    }
+}
+
+asciidoctorRevealJs {
+    revealjsOptions { 
+        controls = true
+    }
+    //theme = "sky"
+}
